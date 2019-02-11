@@ -3,9 +3,11 @@ class NewsUI {
         this.newsContainer = document.querySelector('.news-wrap .row');
     }
 
-    addNews(news) {
-        newsTemplate(news);
-    }
+/** 
+* @desc clears the container
+* @param (*) 
+* @returns (*)
+*/
 
     clearContainer() {
         let first = this.newsContainer.firstElementChild;
@@ -14,15 +16,14 @@ class NewsUI {
             first = this.newsContainer.firstElementChild;
         };
     }
-}
 
-/** function newsTemplate
-* @desc adds news to html markup
+/** 
+* @desc creates markup with news
 * @param (news) 
-* @returns {*}
+* @returns (*)
 */
 
-function newsTemplate(news) {
+    newsTemplate(news) {
         let col = document.createElement('div');
         let card = document.createElement('div');
         let cardImage = document.createElement('div');
@@ -54,8 +55,8 @@ function newsTemplate(news) {
         col.className = "col s12 m6";
         let container = document.querySelector('.news-wrap');
         container.firstElementChild.appendChild(col);
+    }   
 }
-
 //         <div class="col s12 m6">
 //             <div class="card">
 //                 <div class="card-image">

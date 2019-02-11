@@ -1,5 +1,4 @@
 const newsService = new NewsService();
-const newsSearch = new NewsSearch();
 const newsUI = new NewsUI();
 const alert = new Alert();
 
@@ -18,11 +17,11 @@ const search = form['search'];
 function onSelectChange(e) {
     const country = countrySelect.value;
     const category = categorySelect.value;    
-    if (!country || !category) return console.log('Выберите страну и категорию');
+    if (!country || !category) return console.log('Выберите страну и категорию')
     newsService.getTopHeadlinesNews((response) => {
         const { articles } = response;
         newsUI.clearContainer();
-        articles.forEach((news) => newsUI.addNews(news));
+        articles.forEach((news) => newsUI.newsTemplate(news));
     }, category, country);
 }
 
@@ -36,15 +35,20 @@ function searchOn(e) {
    const value = search.value;
    alert.alertOff();  
     if (value.length >= 3) {
-        newsSearch.getSearchNews((response) => {
+        newsService.newsSearch((response) => {
             const { articles } = response;
             if (articles.length === 0) {
+                newsUI.clearContainer();
+                alert.alertOff(); 
                 alert.alertOn();
-            }; 
-            newsUI.clearContainer();
-            articles.forEach((news) => newsUI.addNews(news));
+            } 
+            if (articles.length > 0) {
+                alert.alertOff(); 
+                newsUI.clearContainer();
+                articles.forEach((news) => newsUI.newsTemplate(news));
+            }     
         }, value);
-    };    
+    }    
 }
 
 // Event listeners
